@@ -1,0 +1,612 @@
+*{
+    user-select: none;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+button{
+    cursor: pointer;
+}
+body{
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+thead th tr{
+    position: sticky;
+}
+.indexNav{
+    width: 100%;
+    height: 10vh;
+    background-color: #13cc7f;
+    text-align: center;
+}
+.header{
+    position: relative;
+    top: 3vh;
+    /* font-family: fantasy; */
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 25px;
+    color: white;
+}
+.navItem{
+    width: 100%;
+    height: 7vh;
+    position: fixed;
+    background-color: #0ae08078;
+}
+.navItems{
+    list-style: none;
+    display: flex;
+    padding-left: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    height: 100%;
+}
+.navItems li{
+    padding-left: 6vh;
+}
+#listclient{
+    display: block;
+    position: relative;
+    /* top: -5vh; */
+    /* height: 89%; */
+}
+#clist-button{
+    background-color: #13cc7f;
+    font-family: sans-serif;
+    height: 100%;
+    width: 100px;
+    position: relative;
+    border: none;
+    color: white;
+    /* top: 10vh ;
+    left: 85vh; */
+}
+#log-out{
+    cursor: pointer;
+    background-color: #00000042;
+    color: white;
+    font-family: sans-serif;
+    height: 5vh;
+    width: 100px;
+    border: none;
+    position: relative;
+    border-radius: 5px;
+    /* left: 188vh; */
+    left: 91vh;
+    top: -6vh;
+}
+#clcreate-button{
+    background-color: #13cc7f;
+    color: white;
+    font-family: sans-serif;
+    height: 5vh;
+    width: 100px;
+    border: none;
+    position: relative;
+    border-radius: 5px;
+    left: 188vh;
+    top: 13vh;
+    /* top: 10vh ;
+    left: 90vh; */
+}
+.button{
+    cursor: pointer;
+    background-color: #13cc7f;
+    color: white;
+    font-family: sans-serif;
+    height: 5vh;
+    border: none;
+    position: relative;
+    border-radius: 5px;
+}
+#makesubs-button{
+    cursor: pointer;
+    background-color: #13cc7f;
+    color: white;
+    font-family: sans-serif;
+    height: 5vh;
+    width: 130px;
+    border: none;
+    position: relative;
+    border-radius: 5px;
+    left: 140vh;
+    top: 13vh;
+}
+#clientTable{
+    padding-left: 5vh;
+    /* padding-right: 5vh; */
+    height: 69vh;
+    overflow: overlay;
+}
+
+table{
+    width: 100%;
+}
+
+#table {
+    border-collapse: collapse;
+    position: relative;
+    /* top: 15vh; */
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+    /* font-family: fangsong; */
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+
+th {
+    background-color: #0dca84;
+    color: white;
+}
+
+/* signin page */
+
+.login-body{
+    font-family: sans-serif;
+    background: #0ae08021;
+}
+.login-form{
+    position: fixed;
+    left: 40%;
+    top: 20%;
+    height: 50vh;
+    width: 45vh;
+    background: rgb(199 199 199 / 22%);
+    border: 2px solid #dedede;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px 0px rgb(0 0 0);
+}
+#login-header{
+    position: relative;
+    left: 15vh;
+    color: #0ae080;
+}
+.login-content{
+    position: relative;
+    left: 9vh;
+    top: 5vh;
+}
+.user-field{
+
+}
+.pass-field{
+    position: relative;
+    top: 4vh;
+}
+#username{
+    border: solid #ababab 2px;
+    border-radius: 5px;
+    padding: 1vh;
+    color: #0ae080;
+}
+#password{
+    border: solid #ababab 2px;
+    border-radius: 5px;
+    padding: 1vh;
+    color: #0ae080;
+}
+.login-action{
+    position: relative;
+    top: 8vh;
+    /* left: 9vh; */
+    width: 28vh;
+}
+.cancel-button{
+    background-color: #0ae080;
+    color: white;
+    height: 5vh;
+    width: 12vh;
+    margin-right: 20px;
+    border-radius: 10px;
+    border: 0;
+    cursor: pointer;
+    /* border-color: #c3b8b8;
+    box-shadow: 0px 0px 1px 1px rgb(0 0 0); */
+}
+#login-submit{
+    background-color: #0ae080;
+    width: 100%;
+}
+.submit-button{
+    cursor: pointer;
+    color: white;
+    background-color: #0ae080;
+    height: 5vh;
+    width: 12vh;
+    border-radius: 10px;
+    border: 0;
+    /* border-color: #c3b8b8;
+    box-shadow: 0px 0px 1px 1px rgb(0 0 0); */
+}
+#warning{
+    position: relative;
+    /* left: 41vh; */
+    /* left: 40.5%;
+    top: 67%; */
+    color: #f10000;
+}
+#warning-div{
+    position: fixed;
+    left: 40%;
+    top: 73%;
+    width: 43vh;
+    text-align: center;
+    padding: 1vh;
+    font-family: monospace;
+    color: #0e0e0e;
+    font-weight: bold;
+    background: #ffc6c6;
+    border-radius: 5px;
+    border: 2px solid #dedede;
+    border-color: #ff6060;
+}
+
+/* create client form style */
+
+.modal{
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0 0 0);
+    background-color: rgba(0, 0, 0,0.4);
+}
+.license-detail{
+    z-index: 1;
+    position: relative;
+    /* top: 2vh; */
+    left: 5vh;
+    width: 35vh;
+}
+.dropdownModal{
+    position: fixed;
+    z-index: 1;
+    left: 70vh;
+    top: 20vh;
+    background-color: #fefefe;
+    height: 65vh;
+    overflow: overlay;
+    /* background-color: rgb(0 0 0);
+    background-color: rgba(0, 0, 0,0.4); */
+}
+.modal-content{
+    position: fixed;
+    bottom: 0;
+    background-color: #fefefe;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    width: 100vh;
+    height: 85vh;
+    left: 60vh;
+    top: 6vh;
+}
+.modal-body{
+    width: 100%;
+    height: 95%;
+    overflow: overlay;
+}
+.close{
+    color: white;
+    float: right;
+    margin-right: 2vh;
+    font-size: 28px;
+    font-weight: bold;
+}
+.inputRequire{
+    margin: 0;
+    width: 30%;
+    color: red;
+}
+h2{
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.close:hover,
+.close:focus{
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+.modal-header{
+    background-color: #0dca84;
+    color: #f2f2f2;
+    text-align: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+.modal-body{
+    position: relative;
+    top: -5px;
+    padding: 0;
+}
+.modal-footer{
+    background-color: #0dca84;
+    color: #f2f2f2;
+}
+#clform{
+    height: 100%;
+    position: relative;
+    /* left: 10vh; */
+    /* left: 25vh; */
+    margin: 0;
+    top: 15px;
+    text-align: center;
+    /* border: 2px solid #dedede; */
+    border-radius: 5px;
+    /* box-shadow: 0px 0px 10px 0px rgb(0 0 0); */
+    background: white;
+}
+#NameDiv{
+    position: relative;
+    width: 50vh;
+    left: 12vh;
+}
+#companyNameDiv{
+    position: relative;
+    top: -14.9vh;
+    left: 52vh;
+    width: 50vh;
+}
+#fileNameDiv{
+    width: 50vh;
+    position: relative;
+    top: -15vh;
+    left: 12vh;
+}
+#EmailDiv{
+    width: 50vh;
+    position: relative;
+    top: -29.9vh;
+    left: 52vh;
+}
+#Email{
+    /* position: relative;
+    top: -12vh; */
+}
+#emailRequire{
+    position: absolute;
+    top: -0.5vh;
+    left: 20vh;
+    color: #ff5b1df2;
+}
+#nameRequire{
+    position: absolute;
+    top: 1.5vh;
+    left: 6vh;
+}
+#cnameRequire{
+    position: absolute;
+    top: 1.5vh;
+    left: 17vh;
+}
+#fileRequire{
+    position: absolute;
+    top: 1.5vh;
+    left: 10vh;
+}
+#mailRequire{
+    position: absolute;
+    top: 1.5vh;
+    left: 5vh;
+}
+#cl-button{
+    position: relative;
+    top: -15vh;
+    left: 30vh;
+    width: 40vh;
+}
+.cl-button{
+    position: relative;
+    left: 0vh;
+    top: 5vh;
+    height: 15vh;
+}
+.form-field{
+    position: relative;
+    width: 25vh;
+    top: 2vh;
+    /* left: 8vh; */
+    text-align: left;
+    font-family: system-ui;
+    font-weight: 500;
+}
+.input-field{
+    position: relative;
+    top: -1vh;
+    left: -8vh;
+    width: 35vh;
+    height: 5vh;
+}
+
+/* create license style */
+#license-list{
+    height: 5vh;
+    width: 40vh;
+    position: relative;
+    left: 5vh;
+    top: 3vh;
+}
+#elicense-list{
+    height: 5vh;
+    width: 40vh;
+    position: relative;
+    left: 5vh;
+    top: 3vh;
+}
+.select-style {
+    padding: 0;
+    margin: 0;
+    border: 1px solid #ccc;
+    width: 120px;
+    border-radius: 3px;
+    overflow: hidden;
+    background-color: #fff;
+    background: #fff;
+    position: relative;
+}
+.select-style select {
+    padding: 5px 8px;
+    width: 130%;
+    border: none;
+    box-shadow: none;
+    background-color: transparent;
+    background-image: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+.select-style:after {
+    top: 50%;
+    left: 85%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: rgba(0, 0, 0, 0);
+    border-top-color: #000000;
+    border-width: 5px;
+    margin-top: -2px;
+    z-index: 100;
+}
+
+.select-style select:focus {
+    outline: none;
+}
+#list-license{
+    position: relative;
+    /* left: -19vh; */
+    height: 65vh;
+    width: 95%;
+    padding: 1rem;
+    overflow: overlay;
+}
+#licenseTable{
+    position: relative;
+    height: 5vh;
+    top: 0;
+    /* overflow: overlay; */
+    height: 85%;
+}
+#subsform{
+    position: relative;
+    /* left: 20vh; */
+    margin-top: 3vh;
+    width: 100%;
+    height: 90%;
+}
+#clientId{
+    position: relative;
+    top: -28px;
+    left: 15vh;
+}
+#drop-down{
+    position: relative;
+    left: 17vh;
+    top: -1vh;
+}
+#start-datediv{
+    position: relative;
+    left: 5vh;
+    width: 45vh;
+}
+#end-datediv{
+    position: relative;
+    top: -14.7vh;
+    left: 50vh;
+    width: 45vh;
+}
+#no-userdiv{
+    position: relative;
+    top: -15vh;
+    left: 5vh;
+    width: 45vh;
+}
+#no-users{
+    width: 20vh;
+}
+#eno-users{
+    width: 20vh;
+}
+#server-checkdiv{
+    position: relative;
+    top: -25vh;
+    left: 50vh;
+    width: 45vh;
+}
+#is-server{
+    position: relative;
+    top: -4vh;
+    left: 20vh;
+}
+#eis-server{
+    position: relative;
+    top: -4vh;
+    left: 20vh;
+}
+#noOfUsersRequire{
+    position: absolute;
+    top: 2vh;
+    left: 14vh;
+}
+.require{
+    position: absolute;
+    top: 2vh;
+    left: 28vh;
+}
+#sform-button{
+    position: relative;
+    width: 30vh;
+    height: 10vh;
+    left: 60vh;
+    top: -15vh;
+}
+#cancel-license{
+    position: fixed;
+    left: 50%;
+    top: 50%;
+}
+.input-box{
+    width: 40vh;
+    height: 5vh;
+}
+
+/* view subscription modal */
+
+#view-clsubs{
+    height: 53vh;
+    overflow: overlay;
+    position: relative;
+    top: 15vh;
+    padding: 1rem;
+}
+#clsubs-table{
+    top: 0;
+}
+#count-clsubs{
+    position: relative;
+    left: 25vh;
+    top: 5vh;
+    width: 40vh;
+    text-align: center;
+    border: solid #0ae080 5px;
+    /* border-bottom: 1px; */
+    border-radius: 11px;
+    /* color: #1f1c1c; */
+    background: #0ae08026;
+}
+#count-clsubs-p{
+    font-family: monospace;
+    font-weight: bold;
+}
+
+@-moz-document url-prefix() {
+    .login-action {
+        width: 26vh;
+    }
+}

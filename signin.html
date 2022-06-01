@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <title></title>
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.js"></script> -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    </head>
+    <body class="login-body" onload="signLoad()">
+        <!-- <div class="modal"> -->
+            <!-- <div class="modal-content"> -->
+                <form class="login-form" autocomplete="off">
+                    <h1 id="login-header">Login</h1>
+                    <div class="login-content">
+                        <div class="user-field">
+                            <input type="text" id="username" placeholder="username" required>
+                        </div>
+                        <div class="pass-field">
+                            <input type="password" id="password"  placeholder="password" required>
+                        </div>
+                        <div class="login-action">
+                            <input type="button" id="login-submit" class="submit-button" onclick="signIn()" value="submit">
+                        </div>
+                    </div>
+                </form>
+                <div  id="warning-div" style="display: none;">
+                    <i id="warning" class="fa-solid fa-triangle-exclamation"></i>
+                    <p id="logstatus" style="margin: 0;"></p>
+                </div>
+            <!-- </div>
+        </div> -->
+    </body>
+    <script src="./scripts/script.js"></script>
+    <script src="./scripts/jquery.js"></script>
+    <script src="./scripts/font.js"></script>
+</html>
