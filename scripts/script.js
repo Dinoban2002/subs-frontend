@@ -1,4 +1,4 @@
-let path = 'file:///E:/Tigeen/Project'
+let path = 'file:///home/tigeen/dinoTask/subs_project/Front-End/subs-frontend/'
 let object = [];
 let table = document.querySelector("#table")
 let tbody = document.querySelector("#tbody")
@@ -81,7 +81,7 @@ function pageLoad(){
         licenseloadSts = 1
     }
     else{
-        window.location.replace(`${path}/Front-End/signin.html`)
+        window.location.replace(`${path}/signin.html`)
     }
 }
 
@@ -277,26 +277,26 @@ function makeApi(){
 function ValidateEmail(input) {
 
     var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-  
+
     if (input.match(validRegex)) {
-  
+
     //   alert("Valid email address!");
-  
+
     //   document.form1.text1.focus();
         document.getElementById('emailRequire').style.display = "none";
-      return 1;
-  
+        return 1;
+
     } else {
-  
+
     //   alert("Invalid email address!");
-  
+
     //   document.form1.text1.focus();
         document.getElementById('emailRequire').style.display = "block";
-      return 0;
-  
+        return 0;
+
     }
-  
-  }
+
+}
 function createClient(){
         body.style.background = "white";
         let companyName=document.getElementById('companyName').value
@@ -331,13 +331,11 @@ function createClient(){
         }
 
         emailValidate = ValidateEmail(Email)
-        makeApi()
         let data = {
             companyName,
             Email,
             Name, 
-            fileName, 
-            API
+            fileName
         }
         console.log(data)
         if(emailValidate == 1 && companyName!="" && Email!="" && Name!="" && fileName!="" && API!=""){
@@ -365,10 +363,6 @@ function createClient(){
                     else if(insertstatus==0){
                         alert("enter not null values!!")
                         nullEntryCreateClient()
-                    }
-                    else if(insertstatus==2){
-                        console.log("Error")
-                        // createClient()
                     }
                 }
             });
@@ -429,7 +423,7 @@ function windowOnClick(event){
 function signLoad(){
     sessionLogStatus = sessionStorage.getItem('loginstatus')
     if(sessionLogStatus==1){
-        window.location.replace(`${path}/Front-End/index.html`)
+        window.location.replace(`${path}/index.html`)
     }
     document.getElementById('logstatus').style.display = "none";
 }
@@ -452,10 +446,10 @@ function signIn(){
         warning.style.display="block";
         document.getElementById('logstatus').style.display = "block";
         document.getElementById('logstatus').innerHTML="*please fill out username and password field";
-    }
+    }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
     if(username !='' && password !=''){
         let data ={
-            username,
+            username, 
             password
         }
         console.log(data.username)
@@ -465,11 +459,10 @@ function signIn(){
             data: {...data},
             success: function(res) {
                 let loginstatus = res.loginstatus
-                console.log(loginstatus)
                 if(loginstatus==1){
                     warning.style.display="none";
                     sessionStorage.setItem('loginstatus','1')
-                    window.location.replace(`${path}/Front-End/index.html`)
+                    window.location.replace(`${path}/index.html`)
                 }
                 else{
                     warning.style.display="block";
@@ -489,7 +482,7 @@ function signIn(){
                     document.getElementById('logstatus').style.display = "block";
                     document.getElementById('logstatus').innerHTML="*Check your ID and PASSWORD"
                     // alert("Try again!! Something is wrong....Check your ID & PASSWORD")
-                    // window.location.replace("file:///D:/Tigeen/Project/Front-End/signin.html")
+                    // window.location.replace("file:///D:/Tigeen/Project/signin.html")
                 }
             }
         });
@@ -498,8 +491,8 @@ function signIn(){
 }
 function logOut(){
     sessionStorage.setItem('loginstatus','0')
-    window.location.replace(`${path}/Front-End/signin.html`)
-}
+    window.location.replace(`${path}/signin.html`)
+}         
 
 //make subscription script
 function makeSubscriptionDiv(td){
@@ -823,7 +816,7 @@ function showClSubsTable(sid,cid,lid,startDate,endDate,noOfUsers,server,tcol1,tc
     let col3 = document.createTextNode(tcol2)
     let col4 = document.createTextNode(tcol3)
     if (sernoSize <= subsNo) {
-      subsNo=0  
+    subsNo=0  
     }
     let td1 = document.createElement("td")
     let td2 = document.createElement("td")
@@ -984,7 +977,7 @@ function dateFormat(inputDate, format) {
     //parse the input date
     const date = new Date(inputDate);
 
-    //extract the parts of the date
+    //extract the parts of     the date
     const day = date.getDate();
     const month = date.getMonth() + 1;
     const year = date.getFullYear();    
@@ -1005,7 +998,10 @@ function dateFormat(inputDate, format) {
     return format;
 }
 
-
+function date(inputDate,format){
+    const date =   new Date(inputDate);
+    const day = date.get
+}
 
 
 
