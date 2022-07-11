@@ -1,4 +1,5 @@
 let path = 'file:///home/tigeen/dinoTask/subs_project/Front-End/subs-frontend/'
+let serverReqPath = 'http://127.0.0.1:3007'
 let object = [];
 let table = document.querySelector("#table")
 let tbody = document.querySelector("#tbody")
@@ -32,16 +33,6 @@ let warning=document.getElementById("warning-div");
 let isLicenseLoaded = false
 
 
-// localStorage.setItem('logstatus','true')
-// sessionStorage.setItem('loginstatus','1')
-// sessionStorage.setItem('loginstatus','0')
-// console.log(sessionStorage.getItem('loginstatus'))
-// sessionStorage.setItem('loginstatus','false')
-// console.log(sessionStorage.getItem('loginstatus'))
-// document.cookie = 'name=dino; expires=' +new Date(2023,0,1).toUTCString()
-
-
-window.addEventListener("click",windowOnClick)
 var clientId
 var clientName
 var subscriptionId
@@ -67,7 +58,7 @@ function pageLoad(){
     if(sessionLogStatus == 1){
         console.log("enter pageload")
         $.ajax({
-            url: "http://localhost:3000/"
+            url: `${serverReqPath}/`
         })
         .done(function( data ) {
             object =  data
@@ -189,7 +180,6 @@ function add_Datatable(tcol1, tcol2,tcol3,tcol4,tcol5) {
 }
 function showClientlist()
 {
-    console.log("clicked")
     var clist=document.getElementById("clist-button");
     var ccreate=document.getElementById("clcreate-button");
     if(div.style.display === "none")
@@ -199,10 +189,6 @@ function showClientlist()
         clientDiv.style.display = "none";
         listLicense.style.display = "none";
     }
-    // else{
-    //     div.style.display = "none";
-    // }
-    // listtable(table)
 }
 
 //create client script
@@ -337,25 +323,18 @@ function createClient(){
             Name, 
             fileName
         }
-        console.log(data)
         if(emailValidate == 1 && companyName!="" && Email!="" && Name!="" && fileName!="" && API!=""){
             console.log("inside valid if")
-            $.ajax({
-                type: "POST",
-                url: "http://localhost:3000/insert-user",
-                data: {...data},
-                success: function(res) {
-                    let insertstatus = res.status
-                    console.log(res)
+            axios.post(`${serverReqPath}/insert-user`, data)
+                .then(function(response){
+                    let insertstatus = response.data.status
+                    console.log(response)
                     console.log(insertstatus)
                     if(insertstatus==1){
                         companyName.value='';
                         Email.value='';
                         Name.value='';
-                        fileName.value='';
-                        API.value='';
-                        
-                        // document.location.reload(true)
+                        fileName.value='';                        
                         pageLoad()
                         cancelCreateClient()
                         
@@ -365,32 +344,8 @@ function createClient(){
                         nullEntryCreateClient()
                     }
                 }
-            });
+            );
         }
-        // let req = Request("http://localhost:3000/insert-user", {
-        //     method: "POST",
-        //     headers: {
-        //         "Content-type": "application/json; charset=UTF-8"
-        //     },
-        //     body: data,
-        //     mode: "no-cors"
-        // })
-
-        // fetch(req)
-        // .then(response => response.json())
-        // .then(json => console.log(json));
-
-        // let url = `http://localhost:3000/insert-user?companyName=${companyName}&Email=${Email}&Name=${Name}&fileName=${fileName}&API=${API}` 
-
-        // console.log(data)
-
-        // const request = new XMLHttpRequest();
-        // request.open("GET",url);
-        // request.setRequestHeader('Content-Type','application/json')
-        // request.send();
-        // request.onload = () => {
-        //     console.log(request.response)
-        // }
 }
 span.onclick = function(){
     clientDiv.style.display = "none";
@@ -412,12 +367,6 @@ span.onclick = function(){
     document.getElementById('mailRequire').style.display = "none";
     document.getElementById('emailRequire').style.display = "none";
 } 
-function windowOnClick(event){
-    if(event.target === modal){
-        console.log("modaal clicked")
-        clientDiv.style.display = "none";
-    }
-}
 
 //login script
 function signLoad(){
@@ -428,7 +377,6 @@ function signLoad(){
     document.getElementById('logstatus').style.display = "none";
 }
 function signIn(){
-    console.log("enter signin")
     
     let username = document.getElementById('username').value
     let password = document.getElementById('password').value
@@ -452,40 +400,31 @@ function signIn(){
             username, 
             password
         }
-        console.log(data.username)
-        $.ajax({
-            type: "POST",
-            url: "http://localhost:3000/admin-user",
-            data: {...data},
-            success: function(res) {
-                let loginstatus = res.loginstatus
-                if(loginstatus==1){
-                    warning.style.display="none";
-                    sessionStorage.setItem('loginstatus','1')
-                    window.location.replace(`${path}/index.html`)
-                }
-                else{
-                    warning.style.display="block";
-                }
-                if(loginstatus==2){
-                    document.getElementById('logstatus').style.display = "block";
-                    document.getElementById('logstatus').innerHTML="*User Name is wrong";
-                }
-                if(loginstatus==3){
-                    document.getElementById('logstatus').style.display = "block";
-                    document.getElementById('logstatus').innerHTML="*Password is wrong";
-                }
-                if(loginstatus==0
-                    ){
-                    // errStatus = 0;
-                    console.log(loginstatus)
-                    document.getElementById('logstatus').style.display = "block";
-                    document.getElementById('logstatus').innerHTML="*Check your ID and PASSWORD"
-                    // alert("Try again!! Something is wrong....Check your ID & PASSWORD")
-                    // window.location.replace("file:///D:/Tigeen/Project/signin.html")
-                }
-            }
-        });
+    axios.post(`${serverReqPath}/admin-user`, data)
+        .then(function(response){
+                    let loginstatus = response.data.loginstatus
+                    if(loginstatus==1){
+                        warning.style.display="none";
+                        sessionStorage.setItem('loginstatus','1')
+                        window.location.replace(`${path}/index.html`)
+                    }
+                    else{
+                        warning.style.display="block";
+                    }
+                    if(loginstatus==2){
+                        document.getElementById('logstatus').style.display = "block";
+                        document.getElementById('logstatus').innerHTML="*User Name is wrong";
+                    }
+                    if(loginstatus==3){
+                        document.getElementById('logstatus').style.display = "block";
+                        document.getElementById('logstatus').innerHTML="*Password is wrong";
+                    }
+                    if(loginstatus==0
+                        ){
+                        document.getElementById('logstatus').style.display = "block";
+                        document.getElementById('logstatus').innerHTML="*Check your ID and PASSWORD"
+                    }
+                });
     }
     
 }
@@ -539,7 +478,7 @@ function listDownArrow(){
 }
 function licenseLoad(forEdit,lid){
     $.ajax({
-        url: "http://localhost:3000/add-license"
+        url: `${serverReqPath}/add-license`
     })
     .done(function( data ) {
         clientLicenseObject =  data
@@ -626,12 +565,6 @@ function createSubscription(){
         server=0
     }
     licenseId=document.getElementById("license-list").value;
-    // console.log(clientId)
-    console.log(licenseId)
-    // console.log(startDate)
-    // console.log(endDate)
-    // console.log(noofUsers)
-    // console.log(serverStatus)
     if(startDate==''){
         document.querySelector('#startDateRequire').style.display = "block";
     }
@@ -659,15 +592,10 @@ function createSubscription(){
         noofUsers, 
         server 
     }
-    console.log(data)
     if( startDate!="" && endDate!="" && noofUsers!=""){
-        $.ajax({
-            type: "POST",
-            url: "http://localhost:3000/make-subs",
-            data: {...data},
-            success: function(res) {
-                let insertstatus = res.status
-                console.log(res)
+        axios.post(`${serverReqPath}/make-subs`, data)
+                .then(function(response){
+                let insertstatus = response.data.status
                 if(insertstatus==1){
                     let tdArray = document.querySelectorAll("#subscription")
                     console.log("before ")
@@ -680,26 +608,18 @@ function createSubscription(){
                     alert("enter not null values!!")
                 }
             }
-        });
+        );
     }
 }
 
 // view client subscription
-function viewClSbscription(tbody, table){
-    // let display = clSubsDiv.style.display === "none" ? "block" : "none"
-    // clSubsDiv.style.display = display;
-}
 var countt =0
 function closeClSubsDiv(){
-    // clSubsDiv.style.display = "none";
-    // clientId='';
     clientName = '';
     licenseId = '';
     clSbsCount = 0
     clientId = 2
     if(countt){
-        // document.location.reload(true)
-        
         clSubscriptionLoad()
     }
     else{
@@ -714,8 +634,6 @@ function clSubscriptionLoad(td){
     var clSubsTable = document.createElement("table")
     var clSubsTHead = document.createElement("thead")
     var clSubsTbody = document.createElement("tbody")
-    // console.log("before", subsNo)
-    // collapseval = 1
     
 
     clSubsTable.setAttribute("style","width:100%;")
@@ -743,72 +661,35 @@ function clSubscriptionLoad(td){
     clSubsTHead.appendChild(headTr)
     console.log("after")
     let data = {
-        clientId
+        "clientId" : clientId
     }
     
-    $.ajax({
-        type: "POST",
-        url: "http://localhost:3000/view-subs",
-        data: {...data},
-        success: function(res) {
-            clientSubscriptionObject = res
-            console.log("Client have no sbscription",clientSubscriptionObject)
-            console.log("after uppend",clientSubscriptionObject.length)
-            let sernoSize = clientSubscriptionObject.length
-            if(sernoSize > 0){
-                clSubsTable.appendChild(clSubsTHead)
-                for (let data of clientSubscriptionObject ) {
-                    clLicenseLoad(data.__kp__subsid__lsan,data._kf__clientid__lsxn,data._kf__licenseid__lsxn,data.start_date,data.end_date,data.no_of_user,data.is_server, clSubsTbody, clSubsTable, td,sernoSize)
-                    clSbsCount += 1
-                }
-            }else{
-                let h1 = document.createElement("h1")
-                h1.textContent = "No Subscriptions"
-                clSubsTbody.appendChild(h1)
-                clSubsTable.appendChild(clSubsTbody)
-                td.appendChild(clSubsTable)
-            }
-            // if(clientSubscriptionObject==0){
-            //     // noOfSubs.innerHTML="Client have no sbscription"
-            //     // noOfSubs.style.display = "none";
-            // }
-            // clSubsDetail.innerHTML = clientName + "  have  " + clSbsCount + " Subscriptions" 
-            // if(clSbsCount ==0){
-            //     clSubsTable.style.display = "none"
-            // }
-        }
-    });
+    axios.post(`${serverReqPath}/view-subs`, data)
+        .then(function(res) {
+                    clientSubscriptionObject = res.data
+                    let sernoSize = clientSubscriptionObject.length
+                    let objIndexNo=0
+                    if(sernoSize > 0){
+                        clSubsTable.appendChild(clSubsTHead)
+                        for (let data of clientSubscriptionObject ) {
+                            if(data==clientSubscriptionObject[0]){
+                                console.log("Client have no sbscription",data)
+                                objIndexNo = 1
+                            }
+                            showClSubsTable(data.__kp__subsid__lsan,data._kf__clientid__lsxn,data._kf__licenseid__lsxn,data.start_date,data.end_date,data.no_of_user,data.is_server,data.license.name, data.license.version,data.license.type, clSubsTbody, clSubsTable, td,sernoSize,objIndexNo)
+                            objIndexNo = 0
+                            clSbsCount += 1
+                        }
+                    }else{
+                        let h1 = document.createElement("h1")
+                        h1.textContent = "No Subscriptions"
+                        clSubsTbody.appendChild(h1)
+                        clSubsTable.appendChild(clSubsTbody)
+                        td.appendChild(clSubsTable)
+                    }
+                });
 }
-function clLicenseLoad(sid,cid,lid,startDate,endDate,noOfUsers,server,clSubsTbody, clSubsTable, td,sernoSize){
-    
-    // subsNo=0
-
-    licenseId = lid
-    let data = {
-        licenseId
-    }
-    $.ajax({
-        type: "POST",
-        url: "http://localhost:3000/client-license",
-        data: {...data},
-        success: function(res) {
-            clSubsObject = res
-            clSubscriptionTable(sid,cid,lid,startDate,endDate,noOfUsers,server,clSubsTbody, clSubsTable, td,sernoSize)
-        }
-    })
-}
-var subsNo=0
-function clSubscriptionTable(sid,cid,lid,startDate,endDate,noOfUsers,server,clSubsTbody, clSubsTable, td,sernoSize){
-    // subsNo=0
-    if(sernoSize > 0){
-        for (let data of clSubsObject ) {
-            // console.log("before uppend",clSubsObject)
-            // console.log("inside loop")
-            showClSubsTable(sid,cid,lid,startDate,endDate,noOfUsers,server,data.name, data.version,data.type, clSubsTbody, clSubsTable, td,sernoSize)
-        } 
-    }
-}
-function showClSubsTable(sid,cid,lid,startDate,endDate,noOfUsers,server,tcol1,tcol2,tcol3, clSubsTbody, clSubsTable, td,sernoSize){
+function showClSubsTable(sid,cid,lid,startDate,endDate,noOfUsers,server,tcol1,tcol2,tcol3, clSubsTbody, clSubsTable, td,sernoSize,objIndexNo){
     subsNo++
     td.innerHTML = ''
     let col1 = document.createTextNode(dateFormat(date(startDate),'dd-MM-yyyy'))
@@ -848,7 +729,9 @@ function showClSubsTable(sid,cid,lid,startDate,endDate,noOfUsers,server,tcol1,tc
     tr.appendChild(td2)
     tr.appendChild(td3)
     tr.appendChild(td4)
-    tr.appendChild(td5)
+    if(objIndexNo==1){
+        tr.appendChild(td5)
+    }
     clSubsTbody.appendChild(tr)
     clSubsTable.appendChild(clSubsTbody)
     td.appendChild(clSubsTable)
@@ -943,20 +826,10 @@ function editSubscription(){
         server 
     }
     console.log(data)
-    // clientId='';
-    // licenseId = '';
-    // startDate = '';
-    // endDate = '';
-    // noofUsers = '';
-    // serverStatus  = '';
     if( eStartDate!="" && eEndDate!="" && eNoUsers!=""){
-        $.ajax({
-            type: "POST",
-            url: "http://localhost:3000/update-subs",
-            data: {...data},
-            success: function(res) {
-                let insertstatus = res.status
-                console.log(res)
+        axios.post(`${serverReqPath}/update-subs`, data)
+                .then(function(response){
+                let insertstatus = response.data.status
                 if(insertstatus==1){
                     clSubscriptionLoad(tdIndex)
                     closeEditSubsModal()
@@ -965,9 +838,9 @@ function editSubscription(){
                     closeEditSubsModal()
                 }
             }
-        });
+        );
     }
-}
+}   
 
 //date modification
 function date(date){
@@ -997,21 +870,3 @@ function dateFormat(inputDate, format) {
 
     return format;
 }
-
-function date(inputDate,format){
-    const date =   new Date(inputDate);
-    const day = date.get
-}
-
-
-
-
-
-
-
-
-
-
-
-
-

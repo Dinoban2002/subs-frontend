@@ -71,8 +71,8 @@ thead th tr{
     position: relative;
     border-radius: 5px;
     /* left: 188vh; */
-    left: 91vh;
-    top: -6vh;
+    left: 42%;
+    top: -3vh;
 }
 #clcreate-button{
     background-color: #13cc7f;
@@ -83,7 +83,7 @@ thead th tr{
     border: none;
     position: relative;
     border-radius: 5px;
-    left: 188vh;
+    left: 89.5%;
     top: 13vh;
     /* top: 10vh ;
     left: 90vh; */
@@ -193,10 +193,21 @@ th {
     top: 8vh;
     /* left: 9vh; */
     width: 28vh;
+
+}
+.cancel-button:hover{
+    background-color: #ca0d33;
+    color: white;
+    cursor: pointer;
+}
+.submit-button:hover{
+    background-color: #0dca84;
+    color: white;
+    cursor: pointer;
 }
 .cancel-button{
-    background-color: #0ae080;
-    color: white;
+    background-color: #dfdfdf;
+    color: black;
     height: 5vh;
     width: 12vh;
     margin-right: 20px;
@@ -211,9 +222,9 @@ th {
     width: 100%;
 }
 .submit-button{
-    cursor: pointer;
-    color: white;
-    background-color: #0ae080;
+    cursor: pointer;   
+    background-color: #dfdfdf;
+    color: black;
     height: 5vh;
     width: 12vh;
     border-radius: 10px;
@@ -563,7 +574,7 @@ h2{
     position: relative;
     width: 30vh;
     height: 10vh;
-    left: 60vh;
+    left: 6vh;
     top: -15vh;
 }
 #cancel-license{
@@ -608,5 +619,8 @@ h2{
 @-moz-document url-prefix() {
     .login-action {
         width: 26vh;
+    }
+    #clientTable{
+        overflow: scroll;
     }
 }
