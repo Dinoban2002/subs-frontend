@@ -53,16 +53,13 @@ let sessionLogStatus = 0
 var sno = 0
 let licenseloadSts = 0
 function pageLoad(){
-    console.log("loaded")
     sessionLogStatus =  sessionStorage.getItem('loginstatus')
     if(sessionLogStatus == 1){
-        console.log("enter pageload")
         $.ajax({
             url: `${serverReqPath}/`
         })
         .done(function( data ) {
-            object =  data
-            console.log(object[0].__kp__clientid__lsan)
+            object =  data.result
             listTable()
         });
         showClientlist();
@@ -79,12 +76,9 @@ function pageLoad(){
 //list client script
 function listTable(){
     tbody.innerHTML=''
-
-    console.log("insede istTbl")
     for (let data of object ) {
         sno = sno+1
         add_Datatable(data.__kp__clientid__lsan,data.company_name,data.contact_person,data.file_names,data.email)
-        
     }
 }
 function add_Datatable(tcol1, tcol2,tcol3,tcol4,tcol5) { 
@@ -115,7 +109,6 @@ function add_Datatable(tcol1, tcol2,tcol3,tcol4,tcol5) {
     btn.addEventListener("click", () => {
         clientId=tcol1
         tdIndex = td.dataset.index
-        console.log(tdIndex)
         makeSubscriptionDiv(td)
     })
     index++;
@@ -170,9 +163,7 @@ function add_Datatable(tcol1, tcol2,tcol3,tcol4,tcol5) {
     tbody.appendChild(tr)
     table.appendChild(tbody)
     td.setAttribute("id", "subscription")
-    console.log("in addtable")
     clSubscriptionLoad(td)
-    console.log("after Load")
     td.setAttribute("colspan","5")
     tr1.appendChild(td)
     tbody.appendChild(tr1)
@@ -184,7 +175,6 @@ function showClientlist()
     var ccreate=document.getElementById("clcreate-button");
     if(div.style.display === "none")
     {
-        console.log("block changed")
         div.style.display = "block";
         clientDiv.style.display = "none";
         listLicense.style.display = "none";
@@ -204,7 +194,6 @@ function createClientDiv(){
         document.getElementById('mailRequire').style.display = "none";
         document.getElementById('emailRequire').style.display = "none";
         listLicense.style.display = "none";
-        // body.style.background = "grey";
     }
     else{
         clientDiv.style.display = "none";
@@ -218,13 +207,11 @@ function cancelCreateClient(){
     let Email=document.getElementById('Email')
     let Name=document.getElementById('Name')
     let fileName = document.getElementById('fileName')
-    // let API = document.getElementById('API')
 
     companyName.value='';
     Email.value='';
     Name.value='';
     fileName.value='';
-    // API.value='';
 
     document.getElementById('nameRequire').style.display = "none";
     document.getElementById('cnameRequire').style.display = "none";
@@ -240,10 +227,6 @@ function nullEntryCreateClient(){
     let fileName = document.getElementById('fileName')
     let API = document.getElementById('API')
 
-    // companyName.value='';
-    // Email.value='';
-    // Name.value='';
-    // fileName.value='';
     API.value='';
 
 }
@@ -315,7 +298,6 @@ function createClient(){
         else{
             document.getElementById('fileRequire').style.display = "none";
         }
-
         emailValidate = ValidateEmail(Email)
         let data = {
             companyName,
@@ -324,13 +306,10 @@ function createClient(){
             fileName
         }
         if(emailValidate == 1 && companyName!="" && Email!="" && Name!="" && fileName!="" && API!=""){
-            console.log("inside valid if")
             axios.post(`${serverReqPath}/insert-user`, data)
                 .then(function(response){
                     let insertstatus = response.data.status
-                    console.log(response)
-                    console.log(insertstatus)
-                    if(insertstatus==1){
+                    if(insertstatus){
                         companyName.value='';
                         Email.value='';
                         Name.value='';
@@ -339,8 +318,7 @@ function createClient(){
                         cancelCreateClient()
                         
                     }
-                    else if(insertstatus==0){
-                        alert("enter not null values!!")
+                    else if(!insertstatus){
                         nullEntryCreateClient()
                     }
                 }
@@ -400,31 +378,26 @@ function signIn(){
             username, 
             password
         }
-    axios.post(`${serverReqPath}/admin-user`, data)
+        axios.post(`${serverReqPath}/admin-user`, data)
         .then(function(response){
-                    let loginstatus = response.data.loginstatus
-                    if(loginstatus==1){
-                        warning.style.display="none";
-                        sessionStorage.setItem('loginstatus','1')
-                        window.location.replace(`${path}/index.html`)
-                    }
-                    else{
-                        warning.style.display="block";
-                    }
-                    if(loginstatus==2){
-                        document.getElementById('logstatus').style.display = "block";
-                        document.getElementById('logstatus').innerHTML="*User Name is wrong";
-                    }
-                    if(loginstatus==3){
-                        document.getElementById('logstatus').style.display = "block";
-                        document.getElementById('logstatus').innerHTML="*Password is wrong";
-                    }
-                    if(loginstatus==0
-                        ){
-                        document.getElementById('logstatus').style.display = "block";
-                        document.getElementById('logstatus').innerHTML="*Check your ID and PASSWORD"
-                    }
-                });
+            let loginstatus = response.data.message
+            if(loginstatus == "login successfully"){
+                warning.style.display="none";
+                sessionStorage.setItem('loginstatus','1')
+                window.location.replace(`${path}/index.html`)
+            }
+        })
+        .catch(function(response){
+            let loginstatus = response.response.data.message
+            warning.style.display="block";
+            if(loginstatus == "user doesn't exist"){
+                document.getElementById('logstatus').style.display = "block";
+                document.getElementById('logstatus').innerHTML="*User doesn't exist";
+            }else if(loginstatus=="possword is incorrect"){
+                document.getElementById('logstatus').style.display = "block";
+                document.getElementById('logstatus').innerHTML="*Password is wrong";
+            }
+        })
     }
     
 }
@@ -440,7 +413,6 @@ function makeSubscriptionDiv(td){
     {
         makeSubsDiv.style.display = "block";
         licenseTableDiv.style.display = "none";
-        // licenseLoad();
     }
     else{
         
@@ -459,18 +431,14 @@ function closeSubsDiv(){
     expireMonth = '';
     renewalEndDay = '';
     nullEntryMakeSubs()
-    // document.location.reload(true);
 }
 function cancelmakesubs(){
     closeSubsDiv()
 }
 function listDownArrow(){
-    // let licenseTableDiv=document.getElementById("list-license");
     if(licenseTableDiv.style.display === "none")
     {
         licenseTableDiv.style.display = "block";
-        // div.style.display = "none";
-
     }
     else{
         licenseTableDiv.style.display = "none";
@@ -478,19 +446,14 @@ function listDownArrow(){
 }
 function licenseLoad(forEdit,lid){
     $.ajax({
-        url: `${serverReqPath}/add-license`
+        url: `${serverReqPath}/all-license`
     })
     .done(function( data ) {
-        clientLicenseObject =  data
-        console.log(clientLicenseObject)
-        // licenseTable.removeChild(ltbody)
+        clientLicenseObject =  data.result
         licensTable(forEdit,lid)
     });
 }
 function licensTable(forEdit,lid){
-    // for (let data of clientLicenseObject ) {
-    //     licenseTable.deleterow(data)
-    // }
     for (let data of clientLicenseObject ) {
         showLicenseTable(forEdit,lid,data.__kp__licenseid__lsan,data.name,data.type,data.expire_month,data.renewal_n_day,data.version)
     }
@@ -505,29 +468,19 @@ function showLicenseTable(forEdit,lid,tcol1,tcol2,tcol3,tcol4,tcol5,tcol6){
     let col5 = document.createTextNode(tcol5)
     let col6 = document.createTextNode(tcol6)
     let opt = document.createElement("option")
-    // opt.value = col2;
     opt.setAttribute("value", tcol1)
     if(tcol1 === lid){
         opt.setAttribute("selected", true)
     }
-
     opt.appendChild(col2);
     opt.appendChild(col1);
-    // opt.appendChild(col1);
-    // opt.appendChild(col1);
     opt.appendChild(col6);
-    // opt.addEventListener("click", () => {
-    //     console.log("selectvalue",tcol1)
-    //     // licenseTableDiv.style.display = "none";
-    //     licenseData(tcol1,tcol2,tcol3,tcol4,tcol5)
-    // })
     if(forEdit){
         elicenseDropdown.appendChild(opt)
     }
     else{
         licenseDropdown.appendChild(opt)
     }
-
 }
 function licenseData(d1,d2,d3,d4,d5){
     licenseId = d1
@@ -583,7 +536,6 @@ function createSubscription(){
     else{
         document.querySelector('#noOfUsersRequire').style.display = "none";
     }
-
     let data = {
         clientId,
         licenseId,
@@ -596,16 +548,12 @@ function createSubscription(){
         axios.post(`${serverReqPath}/make-subs`, data)
                 .then(function(response){
                 let insertstatus = response.data.status
-                if(insertstatus==1){
+                if(insertstatus){
                     let tdArray = document.querySelectorAll("#subscription")
-                    console.log("before ")
                     // clSubscriptionLoad(tdArray[tdIndex])
                     clSubscriptionLoad(tdIndex)
                     nullEntryMakeSubs()
                     closeSubsDiv()
-                }
-                else if(insertstatus==0){
-                    alert("enter not null values!!")
                 }
             }
         );
@@ -629,15 +577,11 @@ function closeClSubsDiv(){
 }
 
 function clSubscriptionLoad(td){
-
-    console.log("clSubsriptionload loaded")
     var clSubsTable = document.createElement("table")
     var clSubsTHead = document.createElement("thead")
     var clSubsTbody = document.createElement("tbody")
     
-
     clSubsTable.setAttribute("style","width:100%;")
-
     let headTr = document.createElement("tr")
     let headTh1 = document.createElement("th")
     let headTh2 = document.createElement("th")
@@ -651,7 +595,6 @@ function clSubscriptionLoad(td){
     headTh4.appendChild(document.createTextNode("End Date"))
     headTh5.appendChild(document.createTextNode(""))
     
-
     headTr.appendChild(headTh1)
     headTr.appendChild(headTh2)
     headTr.appendChild(headTh3)
@@ -659,35 +602,43 @@ function clSubscriptionLoad(td){
     headTr.appendChild(headTh5)
     
     clSubsTHead.appendChild(headTr)
-    console.log("after")
     let data = {
         "clientId" : clientId
     }
     
     axios.post(`${serverReqPath}/view-subs`, data)
         .then(function(res) {
-                    clientSubscriptionObject = res.data
-                    let sernoSize = clientSubscriptionObject.length
-                    let objIndexNo=0
-                    if(sernoSize > 0){
-                        clSubsTable.appendChild(clSubsTHead)
-                        for (let data of clientSubscriptionObject ) {
-                            if(data==clientSubscriptionObject[0]){
-                                console.log("Client have no sbscription",data)
-                                objIndexNo = 1
-                            }
-                            showClSubsTable(data.__kp__subsid__lsan,data._kf__clientid__lsxn,data._kf__licenseid__lsxn,data.start_date,data.end_date,data.no_of_user,data.is_server,data.license.name, data.license.version,data.license.type, clSubsTbody, clSubsTable, td,sernoSize,objIndexNo)
-                            objIndexNo = 0
-                            clSbsCount += 1
-                        }
-                    }else{
-                        let h1 = document.createElement("h1")
-                        h1.textContent = "No Subscriptions"
-                        clSubsTbody.appendChild(h1)
-                        clSubsTable.appendChild(clSubsTbody)
-                        td.appendChild(clSubsTable)
+            clientSubscriptionObject = res.data.result
+            let sernoSize = clientSubscriptionObject.length
+            let objIndexNo=0
+            if(sernoSize > 0){
+                clSubsTable.appendChild(clSubsTHead)
+                for (let data of clientSubscriptionObject ) {
+                    if(data==clientSubscriptionObject[0]){
+                        objIndexNo = 1
                     }
-                });
+                    showClSubsTable(data.__kp__subsid__lsan,data._kf__clientid__lsxn,data._kf__licenseid__lsxn,data.start_date,data.end_date,data.no_of_user,data.is_server,data.license.name, data.license.version,data.license.type, clSubsTbody, clSubsTable, td,sernoSize,objIndexNo)
+                    objIndexNo = 0
+                    clSbsCount += 1
+                }
+            }else{
+                let h1 = document.createElement("h1")
+                h1.textContent = "No Subscriptions"
+                clSubsTbody.appendChild(h1)
+                clSubsTable.appendChild(clSubsTbody)
+                td.appendChild(clSubsTable)
+            }
+        }).catch(function(res) {
+            clientSubscriptionObject = res.response.data.result
+            let sernoSize = clientSubscriptionObject.length
+            if(sernoSize == 0){
+                let h1 = document.createElement("h1")
+                h1.textContent = "No Subscriptions"
+                clSubsTbody.appendChild(h1)
+                clSubsTable.appendChild(clSubsTbody)
+                td.appendChild(clSubsTable)
+            }
+        })
 }
 function showClSubsTable(sid,cid,lid,startDate,endDate,noOfUsers,server,tcol1,tcol2,tcol3, clSubsTbody, clSubsTable, td,sernoSize,objIndexNo){
     subsNo++
@@ -743,8 +694,6 @@ function editSubsModal(){
     if(editSubsDiv.style.display === "none")
     {
         editSubsDiv.style.display = "block";
-        
-        // licenseLoad();
     }
     else{
         
@@ -765,9 +714,6 @@ function editSubs(sid,cid,lid,startDate,endDate,noOfUsers,server,td){
     let eNoUsers=document.getElementById('eno-users')
     let eIsServer=document.getElementById('eis-server')
     elicenseDropdown.innerHTML=''
-    console.log(noOfUsers,startDate,"elemny",sid,cid,lid,eEndDate)
-    // eStartDate.value = startDate
-    // eNoUsers.innerHTML= startDate
     eNoUsers.value = noOfUsers
     if(server){      
         eIsServer.checked = true
@@ -780,8 +726,6 @@ function editSubs(sid,cid,lid,startDate,endDate,noOfUsers,server,td){
     eEndDate.value = endDate.slice(0, 10)
     clientId = cid
     subscriptionId = sid
-    // eLicenseList.setAttribute("defaultvalue",lid)
-    // eLicenseList.value = lid
 }
 function editSubscription(){
     let eLicenseList=document.getElementById('elicense-list').value
@@ -825,20 +769,18 @@ function editSubscription(){
         eNoUsers, 
         server 
     }
-    console.log(data)
     if( eStartDate!="" && eEndDate!="" && eNoUsers!=""){
         axios.post(`${serverReqPath}/update-subs`, data)
-                .then(function(response){
+            .then(function(response){
                 let insertstatus = response.data.status
-                if(insertstatus==1){
+                if(insertstatus){
                     clSubscriptionLoad(tdIndex)
                     closeEditSubsModal()
                 }
-                else if(insertstatus==0){
+                else if(!insertstatus){
                     closeEditSubsModal()
                 }
-            }
-        );
+            }).catch(closeEditSubsModal())
     }
 }   
 
