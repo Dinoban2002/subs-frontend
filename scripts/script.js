@@ -59,10 +59,17 @@ function pageLoad(){
             url: `${serverReqPath}/`
         })
         .done(function( data ) {
+            console.log(data)
             object =  data.result
             listTable()
-        });
-        showClientlist();
+            showClientlist();
+        })
+        .catch(function(res){
+            if(res.status == 501){
+                document.getElementById("server-msg").style.display = "block";
+                document.getElementById("server-status").innerHTML = `*SERVER IS DOWN....message: ${res.responseJSON.message}`
+            }
+        })
         if(licenseloadSts == 0 ){
             licenseLoad(0,0);
         }
@@ -322,7 +329,13 @@ function createClient(){
                         nullEntryCreateClient()
                     }
                 }
-            );
+            ).catch(function(res){
+                if(res.response.status == 501){
+                    document.getElementById("server-msg").style.display = "block";
+                    document.getElementById("server-status").innerHTML = `*SERVER IS DOWN....message: `
+                    document.getElementById("server-status").innerHTML = `*SERVER IS DOWN....message: ${res.responseJSON.message}`
+                }
+            });
         }
 }
 span.onclick = function(){
@@ -386,9 +399,6 @@ function signIn(){
                 sessionStorage.setItem('loginstatus','1')
                 window.location.replace(`${path}/index.html`)
             }
-        })
-        .catch(function(response){
-            let loginstatus = response.response.data.message
             warning.style.display="block";
             if(loginstatus == "user doesn't exist"){
                 document.getElementById('logstatus').style.display = "block";
@@ -396,6 +406,13 @@ function signIn(){
             }else if(loginstatus=="possword is incorrect"){
                 document.getElementById('logstatus').style.display = "block";
                 document.getElementById('logstatus').innerHTML="*Password is wrong";
+            }
+        })
+        .catch(function(res){
+            if(res.response.status == 501){
+                document.getElementById("server-msg").style.display = "block";
+                console.log(res)
+                document.getElementById("server-status").innerHTML = `*SERVER IS DOWN....message: ${res.response.data.message}`
             }
         })
     }
@@ -451,6 +468,11 @@ function licenseLoad(forEdit,lid){
     .done(function( data ) {
         clientLicenseObject =  data.result
         licensTable(forEdit,lid)
+    }).catch(function(res){
+        if(res.status == 501){
+            document.getElementById("server-msg").style.display = "block";
+            document.getElementById("server-status").innerHTML = `*SERVER IS DOWN....message: ${res.responseJSON.message}`
+        }
     });
 }
 function licensTable(forEdit,lid){
@@ -503,7 +525,7 @@ function nullEntryMakeSubs(){
     startDate.value = '';
     endDate.value = '';
     noofUsers.value = '';
-    serverStatus.value  = '';
+    serverStatus.checked  = false;
 }
 function createSubscription(){
     startDate=document.getElementById('start-date').value;
@@ -556,7 +578,12 @@ function createSubscription(){
                     closeSubsDiv()
                 }
             }
-        );
+        ).catch(function(res){
+            if(res.response.status == 501){
+                document.getElementById("server-msg").style.display = "block";
+                document.getElementById("server-status").innerHTML = `*SERVER IS DOWN....message: ${res.responseJSON.message}`
+            }
+        });
     }
 }
 
@@ -628,15 +655,10 @@ function clSubscriptionLoad(td){
                 clSubsTable.appendChild(clSubsTbody)
                 td.appendChild(clSubsTable)
             }
-        }).catch(function(res) {
-            clientSubscriptionObject = res.response.data.result
-            let sernoSize = clientSubscriptionObject.length
-            if(sernoSize == 0){
-                let h1 = document.createElement("h1")
-                h1.textContent = "No Subscriptions"
-                clSubsTbody.appendChild(h1)
-                clSubsTable.appendChild(clSubsTbody)
-                td.appendChild(clSubsTable)
+        }).catch(function(res){
+            if(res.response.status == 501){
+                document.getElementById("server-msg").style.display = "block";
+                document.getElementById("server-status").innerHTML = `*SERVER IS DOWN....message: ${res.responseJSON.message}`
             }
         })
 }
@@ -771,16 +793,21 @@ function editSubscription(){
     }
     if( eStartDate!="" && eEndDate!="" && eNoUsers!=""){
         axios.post(`${serverReqPath}/update-subs`, data)
-            .then(function(response){
-                let insertstatus = response.data.status
-                if(insertstatus){
-                    clSubscriptionLoad(tdIndex)
-                    closeEditSubsModal()
-                }
-                else if(!insertstatus){
-                    closeEditSubsModal()
-                }
-            }).catch(closeEditSubsModal())
+        .then(function(response){
+            let insertstatus = response.data.status
+            if(insertstatus){
+                clSubscriptionLoad(tdIndex)
+                closeEditSubsModal()
+            }
+            else if(!insertstatus){
+                closeEditSubsModal()
+            }
+        }).catch(function(res){
+            if(res.response.status == 501){
+                document.getElementById("server-msg").style.display = "block";
+                document.getElementById("server-status").innerHTML = `*SERVER IS DOWN....message: ${res.responseJSON.message}`
+            }
+        })
     }
 }   
 

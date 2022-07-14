@@ -9,7 +9,7 @@
     <body class="login-body" onload="signLoad()">
         <!-- <div class="modal"> -->
             <!-- <div class="modal-content"> -->
-                <form class="login-form" autocomplete="off">
+                <form class="login-form" autocomplete="off" style="background: #0ae08021;">
                     <h1 id="login-header">Login</h1>
                     <div class="login-content">
                         <div class="user-field">
@@ -29,6 +29,11 @@
                 </div>
             <!-- </div>
         </div> -->
+        <div id="server-msg" class="modal" style= "display: none;">
+            <div class="modal-content" style="width: 50vh;height: 25vh;left: 70vh;top: 35vh;background-color: rgba(214, 56, 56, 0.888);">
+                <h5 id="server-status"></h5>
+            </div>
+        </div>
     </body>
     <script src="./scripts/script.js"></script>
     <script src="./scripts/jquery.js"></script>
