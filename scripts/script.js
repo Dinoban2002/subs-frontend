@@ -59,15 +59,23 @@ function pageLoad(){
             url: `${serverReqPath}/`
         })
         .done(function( data ) {
-            console.log(data)
             object =  data.result
             listTable()
             showClientlist();
         })
         .catch(function(res){
-            if(res.status == 501){
+            console.log(res)
+            console.log("page load catch")
+            if(res.status == 500){
+            console.log("comatch")
                 document.getElementById("server-msg").style.display = "block";
-                document.getElementById("server-status").innerHTML = `*SERVER IS DOWN....message: ${res.responseJSON.message}`
+                document.getElementById("server-status").innerHTML = `Connection ERROR`
+            }else if(res.status == 501){
+                document.getElementById("server-msg").style.display = "block";
+                document.getElementById("server-status").innerHTML = `message: ${res.responseJSON.message}`
+            }else{
+                document.getElementById("body-div").style.display = "none";
+                document.getElementById("server-broken").style.display = "block";
             }
         })
         if(licenseloadSts == 0 ){
@@ -330,15 +338,22 @@ function createClient(){
                     }
                 }
             ).catch(function(res){
-                if(res.response.status == 501){
-                    document.getElementById("server-msg").style.display = "block";
-                    document.getElementById("server-status").innerHTML = `*SERVER IS DOWN....message: `
-                    document.getElementById("server-status").innerHTML = `*SERVER IS DOWN....message: ${res.responseJSON.message}`
-                }
+                if(res.response.status == 500){
+                    console.log("comatch")
+                        document.getElementById("server-msg").style.display = "block";
+                        document.getElementById("server-status").innerHTML = `Connection ERROR`
+                    }else if(res.response.status == 501){
+                        document.getElementById("server-msg").style.display = "block";
+                        document.getElementById("server-status").innerHTML = `message: Query isn't run`
+                    }else{
+                        document.getElementById("body-div").style.display = "none";
+                        document.getElementById("server-broken").style.display = "block";
+                    }
             });
         }
 }
 span.onclick = function(){
+    document.getElementById("server-msg").style.display = "none";
     clientDiv.style.display = "none";
     body.style.background = "white";
     let companyName=document.getElementById('companyName')
@@ -409,11 +424,17 @@ function signIn(){
             }
         })
         .catch(function(res){
-            if(res.response.status == 501){
-                document.getElementById("server-msg").style.display = "block";
-                console.log(res)
-                document.getElementById("server-status").innerHTML = `*SERVER IS DOWN....message: ${res.response.data.message}`
-            }
+            if(res.response.status == 500){
+                console.log("comatch")
+                    document.getElementById("server-msg").style.display = "block";
+                    document.getElementById("server-status").innerHTML = `Connection ERROR`
+                }else if(res.response.status == 501){
+                    document.getElementById("server-msg").style.display = "block";
+                    document.getElementById("server-status").innerHTML = `message: Query isn't run`
+                }else{
+                    document.getElementById("body-div").style.display = "none";
+                    document.getElementById("server-broken").style.display = "block";
+                }
         })
     }
     
@@ -469,10 +490,18 @@ function licenseLoad(forEdit,lid){
         clientLicenseObject =  data.result
         licensTable(forEdit,lid)
     }).catch(function(res){
-        if(res.status == 501){
-            document.getElementById("server-msg").style.display = "block";
-            document.getElementById("server-status").innerHTML = `*SERVER IS DOWN....message: ${res.responseJSON.message}`
-        }
+        console.log(res)
+        if(res.status == 500){
+            console.log("comatch")
+                document.getElementById("server-msg").style.display = "block";
+                document.getElementById("server-status").innerHTML = `Connection ERROR`
+            }else if(res.status == 501){
+                document.getElementById("server-msg").style.display = "block";
+                document.getElementById("server-status").innerHTML = `message: ${res.responseJSON.message}`
+            }else{
+                document.getElementById("body-div").style.display = "none";
+                document.getElementById("server-broken").style.display = "block";
+            }
     });
 }
 function licensTable(forEdit,lid){
@@ -579,10 +608,17 @@ function createSubscription(){
                 }
             }
         ).catch(function(res){
-            if(res.response.status == 501){
-                document.getElementById("server-msg").style.display = "block";
-                document.getElementById("server-status").innerHTML = `*SERVER IS DOWN....message: ${res.responseJSON.message}`
-            }
+            if(res.response.status == 500){
+                console.log("comatch")
+                    document.getElementById("server-msg").style.display = "block";
+                    document.getElementById("server-status").innerHTML = `Connection ERROR`
+                }else if(res.response.status == 501){
+                    document.getElementById("server-msg").style.display = "block";
+                    document.getElementById("server-status").innerHTML = `message: Query isn't run`
+                }else{
+                    document.getElementById("body-div").style.display = "none";
+                    document.getElementById("server-broken").style.display = "block";
+                }
         });
     }
 }
@@ -656,10 +692,17 @@ function clSubscriptionLoad(td){
                 td.appendChild(clSubsTable)
             }
         }).catch(function(res){
-            if(res.response.status == 501){
-                document.getElementById("server-msg").style.display = "block";
-                document.getElementById("server-status").innerHTML = `*SERVER IS DOWN....message: ${res.responseJSON.message}`
-            }
+            if(res.response.status == 500){
+                console.log("comatch")
+                    document.getElementById("server-msg").style.display = "block";
+                    document.getElementById("server-status").innerHTML = `Connection ERROR`
+                }else if(res.response.status == 501){
+                    document.getElementById("server-msg").style.display = "block";
+                    document.getElementById("server-status").innerHTML = `message: Query isn't run`
+                }else{
+                    document.getElementById("body-div").style.display = "none";
+                    document.getElementById("server-broken").style.display = "block";
+                }
         })
 }
 function showClSubsTable(sid,cid,lid,startDate,endDate,noOfUsers,server,tcol1,tcol2,tcol3, clSubsTbody, clSubsTable, td,sernoSize,objIndexNo){
@@ -803,10 +846,17 @@ function editSubscription(){
                 closeEditSubsModal()
             }
         }).catch(function(res){
-            if(res.response.status == 501){
-                document.getElementById("server-msg").style.display = "block";
-                document.getElementById("server-status").innerHTML = `*SERVER IS DOWN....message: ${res.responseJSON.message}`
-            }
+            if(res.response.status == 500){
+                console.log("comatch")
+                    document.getElementById("server-msg").style.display = "block";
+                    document.getElementById("server-status").innerHTML = `Connection ERROR`
+                }else if(res.response.status == 501){
+                    document.getElementById("server-msg").style.display = "block";
+                    document.getElementById("server-status").innerHTML = `message: Query isn't run`
+                }else{
+                    document.getElementById("body-div").style.display = "none";
+                    document.getElementById("server-broken").style.display = "block";
+                }
         })
     }
 }   
@@ -838,4 +888,7 @@ function dateFormat(inputDate, format) {
     format = format.replace("dd", day.toString().padStart(2,"0"));
 
     return format;
+}
+function closeServerMsg(){
+    document.getElementById("server-msg").style.display = "none";
 }

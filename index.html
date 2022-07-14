@@ -11,213 +11,219 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     </head >
     <body id="indexBody" onload="pageLoad()">
-        <div class="indexNav">
-            <p class="header">SUBSCRIPTION  MANAGEMENT</p>
-            <button id="log-out" onclick="logOut()"><i class="fa-solid fa-right-from-bracket"></i>  Log Out</button>
-        </div>
-        <!-- <div class="navItem">
-            <ul class="navItems"> 
-            <li><button id="clist-button" onclick="showClientlist()">Client List</button></li>
-            </ul>
-        </div> -->
-        <div id="listclient" style="display: none;">
-            <button id="clcreate-button" onclick="createClientDiv()"><i class="fa-solid fa-user-plus"></i> Add Client</button>
-        </div>
-        <div id="clientTable" style="position: relative;top: 15vh;">
-           
-            <table id="table">
-                <thead class="cth" style="position: sticky;z-index: 1;top: 0;">
-                    <!-- <th></th> -->
-                    <!-- <th style="text-align: center;">S/No</th> -->
-                    <th>Company Name</th>
-                    <th>Name</th>
-                    <th>File Name</th>
-                    <th>E-mail</th>
-                    <th>Subscription</th>
-                </thead>
-                <tbody id="tbody">
-                    
-                </tbody>
-            </table>
-           
-        </div>
-        <div id="createClient" class="modal" style="display: none;">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <span class="close">&times;</span>
-                    <h2>Create Client</h2>
-                </div>
-                <div class="modal-body" style="overflow: hidden;">
-                    <form id="clform" >
-                        <div id="NameDiv">
-                            <h4 class="form-field Name">Name</h4>
-                            <p id="nameRequire" class="inputRequire">*(Require)</p>
-                            <input class="input-field" autocomplete="off" type="text" id="Name" name="Name">
-                        </div>
-                        <div id="companyNameDiv">
-                            <h4 class="form-field companyName">Company Name</h4><p id="cnameRequire" class="inputRequire">*(Require)</p>
-                            <input class="input-field" autocomplete="off" type="text" id="companyName" name="companyName">
-                        </div>
-                        <div id="fileNameDiv">
-                            <h4 class="form-field fileName">File Name</h4><p id="fileRequire" class="inputRequire">*(Require)</p>
-                            <input class="input-field" autocomplete="off" type="text" id="fileName" name="fileName">
-                        </div>
-                        <div id="EmailDiv">
-                            <h4 class="form-field Email">Email</h4><p id="mailRequire" class="inputRequire">*(Require)</p><p id="emailRequire">(Invalid Email)</p>
-                            <input class="input-field" autocomplete="off" type="email" id="Email" name="Email" required>
-                        </div>
-                        <!-- <div>
-                            <h4 class="form-field API">API KEY</h4>
-                            <input class="input-field" autocomplete="off" type="text" id="API" name="API">
-                        </div> -->
-                        
-                        <div id="cl-button" class="cl-button">
-                            <input type="button" class="cancel-button" onclick="cancelCreateClient()" value="cancel">
-                            <input type="button" class="submit-button" onclick="createClient()" value="submit">
-                        </div>
-                    </form>
-                </div>
+        <div class="body-div">
+            <div class="indexNav">
+                <p class="header">SUBSCRIPTION  MANAGEMENT</p>
+                <button id="log-out" onclick="logOut()"><i class="fa-solid fa-right-from-bracket"></i>  Log Out</button>
             </div>
-        </div>
-        <div id="make-subscription" class="modal" style="display: none;">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <span class="close" onclick="closeSubsDiv()">&times;</span>
-                    <h2>Make Subscription</h2>
-                </div>
-                <div class="modal-body">
-                    <form id="subsform" >
-                        <div class="license-detail">
-                            <h4 class="form-field" style="margin: 0;left: 0%;top: 1.5vh;">License Detail</h4>
-                            <!-- <i id="drop-down" class="fa-solid fa-caret-down" onclick="listDownArrow()"></i> -->
-                        </div>
-                        <div id="list-license" style="display: none;">
-                            <div class="modal">
-                                <div class="dropdownModal">
-                                    <table id="licenseTable">
-                                        <thead class="lth">
-                                            <!-- <th>License Id</th> -->
-                                            <th>Name</th>
-                                            <!-- <th>Component</th> -->
-                                            <th>Type</th>
-                                            <!-- <th>Expire Month</th> -->
-                                            <!-- <th>Renewal end day</th> -->
-                                            <th>Version</th>
-                                            <th>Make Subscription</th>
-                                        </thead>
-                                        <tbody id="ltbody">
-                                        </tbody>
-                                    </table>
-                                </div>
+            <!-- <div class="navItem">
+                <ul class="navItems"> 
+                <li><button id="clist-button" onclick="showClientlist()">Client List</button></li>
+                </ul>
+            </div> -->
+            <div id="listclient" style="display: none;">
+                <button id="clcreate-button" onclick="createClientDiv()"><i class="fa-solid fa-user-plus"></i> Add Client</button>
+            </div>
+            <div id="clientTable" style="position: relative;top: 15vh;">
+               
+                <table id="table">
+                    <thead class="cth" style="position: sticky;z-index: 1;top: 0;">
+                        <!-- <th></th> -->
+                        <!-- <th style="text-align: center;">S/No</th> -->
+                        <th>Company Name</th>
+                        <th>Name</th>
+                        <th>File Name</th>
+                        <th>E-mail</th>
+                        <th>Subscription</th>
+                    </thead>
+                    <tbody id="tbody">
+                        
+                    </tbody>
+                </table>
+               
+            </div>
+            <div id="createClient" class="modal" style="display: none;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <span class="close">&times;</span>
+                        <h2>Create Client</h2>
+                    </div>
+                    <div class="modal-body" style="overflow: hidden;">
+                        <form id="clform" >
+                            <div id="NameDiv">
+                                <h4 class="form-field Name">Name</h4>
+                                <p id="nameRequire" class="inputRequire">*(Require)</p>
+                                <input class="input-field" autocomplete="off" type="text" id="Name" name="Name">
                             </div>
-                            <!-- <input type="button" id="cancel-license" class="cancel-button " onclick="cancelClientLicense()" value="cancel"> -->
-                        </div>
-                        <div id="license-div">
-                            <select  id="license-list" class="select-style">
-                                
-                            </select>
-                        </div>
-                        <div id="start-datediv">
-                            <h4 class="form-field " style="left: 0;">Start Date</h4>
-                            <p id="startDateRequire" class="require inputRequire" style="display: none;">*(Require)</p>
-                            <input type="date" autocomplete="off" class="input-box" id="start-date" >
-                        </div>
-                        <div id="end-datediv">
-                            <h4 class="form-field " style="left: 0;">End Date</h4>
-                            <p id="endDateRequire" class="require inputRequire" style="display: none;">*(Require)</p>
-                            <input type="date" autocomplete="off" class="input-box" id="end-date" >
-                        </div>
-                        <div id="no-userdiv">
-                            <h4 class="form-field " style="left: 0;">No of Users</h4>
-                            <p id="noOfUsersRequire" class="require inputRequire" style="display: none;">*(Require)</p>
-                            <input type="text" autocomplete="off" class="input-box" id="no-users" >
-                        </div>
-                        <div id="server-checkdiv">
-                            <h4 class="form-field " style="left: 0;">Applicable Server</h4>
-                            <input type="checkbox" id="is-server" >
-                        </div>
-                        <div id="sform-button">
-                            <input type="button" class="cancel-button" onclick="cancelmakesubs()" value="cancel">
-                            <input type="button" class="submit-button" onclick="createSubscription()" value="submit">
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <div id="clsubs-div" class="modal" style="display: none;">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <span class="close" onclick="closeClSubsDiv()">&times;</span>
-                    <h2 style="font-family: sans-serif;">Client's Subscriptions</h2>
-                </div>
-                <div class="modal-body">
-                    <div id="count-clsubs">
-                        <p id="count-clsubs-p"></p>
-                    </div>
-                    <div id="view-clsubs">
-                        <table id="clsubs-table">
-                            <thead class="lth">
-                                <th>S/No</th>
-                                <th>Name</th>
-                                <th>Version</th>
-                            </thead>
-                            <tbody id="clsubs-tbody">
-                            </tbody>
-                        </table>
+                            <div id="companyNameDiv">
+                                <h4 class="form-field companyName">Company Name</h4><p id="cnameRequire" class="inputRequire">*(Require)</p>
+                                <input class="input-field" autocomplete="off" type="text" id="companyName" name="companyName">
+                            </div>
+                            <div id="fileNameDiv">
+                                <h4 class="form-field fileName">File Name</h4><p id="fileRequire" class="inputRequire">*(Require)</p>
+                                <input class="input-field" autocomplete="off" type="text" id="fileName" name="fileName">
+                            </div>
+                            <div id="EmailDiv">
+                                <h4 class="form-field Email">Email</h4><p id="mailRequire" class="inputRequire">*(Require)</p><p id="emailRequire">(Invalid Email)</p>
+                                <input class="input-field" autocomplete="off" type="email" id="Email" name="Email" required>
+                            </div>
+                            <!-- <div>
+                                <h4 class="form-field API">API KEY</h4>
+                                <input class="input-field" autocomplete="off" type="text" id="API" name="API">
+                            </div> -->
+                            
+                            <div id="cl-button" class="cl-button">
+                                <input type="button" class="cancel-button" onclick="cancelCreateClient()" value="cancel">
+                                <input type="button" class="submit-button" onclick="createClient()" value="submit">
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
-        </div>
-        <div id="edit-subscription" class="modal" style="display: none;">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <span class="close" onclick="closeEditSubsModal()">&times;</span>
-                    <h2>Edit Subscription</h2>
+            <div id="make-subscription" class="modal" style="display: none;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <span class="close" onclick="closeSubsDiv()">&times;</span>
+                        <h2>Make Subscription</h2>
+                    </div>
+                    <div class="modal-body">
+                        <form id="subsform" >
+                            <div class="license-detail">
+                                <h4 class="form-field" style="margin: 0;left: 0%;top: 1.5vh;">License Detail</h4>
+                                <!-- <i id="drop-down" class="fa-solid fa-caret-down" onclick="listDownArrow()"></i> -->
+                            </div>
+                            <div id="list-license" style="display: none;">
+                                <div class="modal">
+                                    <div class="dropdownModal">
+                                        <table id="licenseTable">
+                                            <thead class="lth">
+                                                <!-- <th>License Id</th> -->
+                                                <th>Name</th>
+                                                <!-- <th>Component</th> -->
+                                                <th>Type</th>
+                                                <!-- <th>Expire Month</th> -->
+                                                <!-- <th>Renewal end day</th> -->
+                                                <th>Version</th>
+                                                <th>Make Subscription</th>
+                                            </thead>
+                                            <tbody id="ltbody">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <!-- <input type="button" id="cancel-license" class="cancel-button " onclick="cancelClientLicense()" value="cancel"> -->
+                            </div>
+                            <div id="license-div">
+                                <select  id="license-list" class="select-style">
+                                    
+                                </select>
+                            </div>
+                            <div id="start-datediv">
+                                <h4 class="form-field " style="left: 0;">Start Date</h4>
+                                <p id="startDateRequire" class="require inputRequire" style="display: none;">*(Require)</p>
+                                <input type="date" autocomplete="off" class="input-box" id="start-date" >
+                            </div>
+                            <div id="end-datediv">
+                                <h4 class="form-field " style="left: 0;">End Date</h4>
+                                <p id="endDateRequire" class="require inputRequire" style="display: none;">*(Require)</p>
+                                <input type="date" autocomplete="off" class="input-box" id="end-date" >
+                            </div>
+                            <div id="no-userdiv">
+                                <h4 class="form-field " style="left: 0;">No of Users</h4>
+                                <p id="noOfUsersRequire" class="require inputRequire" style="display: none;">*(Require)</p>
+                                <input type="text" autocomplete="off" class="input-box" id="no-users" >
+                            </div>
+                            <div id="server-checkdiv">
+                                <h4 class="form-field " style="left: 0;">Applicable Server</h4>
+                                <input type="checkbox" id="is-server" >
+                            </div>
+                            <div id="sform-button">
+                                <input type="button" class="cancel-button" onclick="cancelmakesubs()" value="cancel">
+                                <input type="button" class="submit-button" onclick="createSubscription()" value="submit">
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <div class="modal-body">
-                    <form id="subsform" >
-                        <div class="license-detail">
-                            <h4 class="form-field" style="margin: 0;left: 0%;top: 1.5vh;">License Detail</h4>
-                            <!-- <i id="drop-down" class="fa-solid fa-caret-down" onclick="listDownArrow()"></i> -->
+            </div>
+            <div id="clsubs-div" class="modal" style="display: none;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <span class="close" onclick="closeClSubsDiv()">&times;</span>
+                        <h2 style="font-family: sans-serif;">Client's Subscriptions</h2>
+                    </div>
+                    <div class="modal-body">
+                        <div id="count-clsubs">
+                            <p id="count-clsubs-p"></p>
                         </div>
-                        
-                        <div id="license-div">
-                            <select  id="elicense-list" class="select-style">
-                                
-                            </select>
+                        <div id="view-clsubs">
+                            <table id="clsubs-table">
+                                <thead class="lth">
+                                    <th>S/No</th>
+                                    <th>Name</th>
+                                    <th>Version</th>
+                                </thead>
+                                <tbody id="clsubs-tbody">
+                                </tbody>
+                            </table>
                         </div>
-                        <div id="start-datediv">
-                            <h4 class="form-field " style="left: 0;">Start Date</h4>
-                            <p id="eStartDateRequire" class="require inputRequire" style="display: none;">*(Require)</p>
-                            <input type="date" autocomplete="off" class="input-box" id="estart-date" >
-                        </div>
-                        <div id="end-datediv">
-                            <h4 class="form-field " style="left: 0;">End Date</h4>
-                            <p id="eEndDateRequire" class="require inputRequire" style="display: none;">*(Require)</p>
-                            <input type="date" autocomplete="off" class="input-box" id="eend-date" >
-                        </div>
-                        <div id="no-userdiv">
-                            <h4 class="form-field " style="left: 0;">No of Users</h4>
-                            <p id="eno-usersRequire" class="require inputRequire" style="display: none;left: 14vh;">*(Require)</p>
-                            <input type="text" autocomplete="off" class="input-box" id="eno-users" >
-                        </div>
-                        <div id="server-checkdiv">
-                            <h4 class="form-field " style="left: 0;">Applicable Server</h4>
-                            <input type="checkbox" id="eis-server" >
-                        </div>
-                        <div id="sform-button">
-                            <input type="button" class="cancel-button" onclick="closeEditSubsModal()" value="cancel">
-                            <input type="button" class="submit-button" onclick="editSubscription()" value="submit">
-                        </div>
-                    </form>
+                    </div>
+                </div>
+            </div>
+            <div id="edit-subscription" class="modal" style="display: none;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <span class="close" onclick="closeEditSubsModal()">&times;</span>
+                        <h2>Edit Subscription</h2>
+                    </div>
+                    <div class="modal-body">
+                        <form id="subsform" >
+                            <div class="license-detail">
+                                <h4 class="form-field" style="margin: 0;left: 0%;top: 1.5vh;">License Detail</h4>
+                                <!-- <i id="drop-down" class="fa-solid fa-caret-down" onclick="listDownArrow()"></i> -->
+                            </div>
+                            
+                            <div id="license-div">
+                                <select  id="elicense-list" class="select-style">
+                                    
+                                </select>
+                            </div>
+                            <div id="start-datediv">
+                                <h4 class="form-field " style="left: 0;">Start Date</h4>
+                                <p id="eStartDateRequire" class="require inputRequire" style="display: none;">*(Require)</p>
+                                <input type="date" autocomplete="off" class="input-box" id="estart-date" >
+                            </div>
+                            <div id="end-datediv">
+                                <h4 class="form-field " style="left: 0;">End Date</h4>
+                                <p id="eEndDateRequire" class="require inputRequire" style="display: none;">*(Require)</p>
+                                <input type="date" autocomplete="off" class="input-box" id="eend-date" >
+                            </div>
+                            <div id="no-userdiv">
+                                <h4 class="form-field " style="left: 0;">No of Users</h4>
+                                <p id="eno-usersRequire" class="require inputRequire" style="display: none;left: 14vh;">*(Require)</p>
+                                <input type="text" autocomplete="off" class="input-box" id="eno-users" >
+                            </div>
+                            <div id="server-checkdiv">
+                                <h4 class="form-field " style="left: 0;">Applicable Server</h4>
+                                <input type="checkbox" id="eis-server" >
+                            </div>
+                            <div id="sform-button">
+                                <input type="button" class="cancel-button" onclick="closeEditSubsModal()" value="cancel">
+                                <input type="button" class="submit-button" onclick="editSubscription()" value="submit">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div id="server-msg" class="modal" style= "display: none;">
+                <div class="modal-content" style="width: 50vh;height: 25vh;left: 70%;top: 35vh;background-color: rgba(255, 117, 117, 0.86);text-align: center;">
+                    <div class="modal-header">
+                        <span class="close" onclick="closeServerMsg()">&times;</span>
+                    </div>
+                    <h5 id="server-status"></h5>
                 </div>
             </div>
         </div>
-        <div id="server-msg" class="modal" style= "display: none;">
-            <div class="modal-content" style="width: 50vh;height: 25vh;left: 70vh;top: 35vh;background-color: rgba(214, 56, 56, 0.888);">
-                <h5 id="server-status"></h5>
-            </div>
-        </div>
+        <h1 class="server-broken" style="display: none;">SERVER IS BROKEN</h1>
     </body>
     <script src="./scripts/script.js"></script>
     <script src="./scripts/jquery.js"></script>
